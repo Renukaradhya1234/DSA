@@ -12,9 +12,49 @@ class BinaryNodeConnector :
         self.RootNode.InsertData(NewData)
     
     # READ operation..........
-    def DisplayTreeValues(self) -> None :
-        self.DisplayLeftNode(self.RootNode)
-        self.DisplayRightNode(self.RootNode.GetRightNode())
+    def InOrderTraversal(self) -> list[int] :
+        # left -> root -> right
+        Ouput: list[int] = []
+
+        def NodeTraversal(Node: BinaryNode) -> None :
+            if Node is None :
+                return
+            NodeTraversal(Node.GetLeftNode())
+            Ouput.append(Node.GetData())
+            NodeTraversal(Node.GetRightNode())
+
+        NodeTraversal(self.RootNode)
+        return Ouput
+    # READ operation.........
+    def PreOrderTraversal(self) -> list[int] :
+        # root -> left -> right
+        Output: list[int] = []
+
+        def NodeTraversal(Node: BinaryNode) -> None :
+            if Node is None:
+                return
+            Output.append(Node.GetData())
+            NodeTraversal(Node.GetLeftNode())
+            NodeTraversal(Node.GetRightNode())
+        NodeTraversal(self.RootNode)
+
+        return Output
+    
+    # READ operation.........
+    def PostOrderTraversal(self) -> list[int] :
+        # left -> right -> root
+        Output: list[int] = []
+
+        def NodeTraversal(Node: BinaryNode) -> None:
+            if Node is None :
+                return
+            NodeTraversal(Node.GetLeftNode())
+            NodeTraversal(Node.GetRightNode())
+            Output.append(Node.GetData())
+        NodeTraversal(self.RootNode)
+
+        return Output
+
 
     def UpdateNodeValues(self, OldValue: int, NewValue: int) -> None :
         pass
@@ -24,33 +64,27 @@ class BinaryNodeConnector :
     # >>>>>>>>>>>>>>>>>>>> CRUD operations ends<<<<<<<<<<<<<<<<<<<<
 
 
-    def DisplayLeftNode(self, Node: BinaryNode) -> None: 
-        if Node is None :
-            return
-        Node.DisplayData()
-        self.DisplayLeftNode(Node.GetLeftNode())
-
-    def DisplayRightNode(self, Node: BinaryNode) -> None:
-        if Node is None :
-            return
-        Node.DisplayData()
-        self.DisplayRightNode(Node.GetRightNode())
-
-
-userChoice = ("Enter the choice: " +
-              "1. Insert Data" + 
-              "2. Display Data" + 
-              "3. Exit"
+if __name__ == "__main__" :
+    userChoice = ("Enter the choice: " +
+              "insert" + 
+              "inorder" + 
+              "preorder" + 
+              "postorder" +
+              "exit"
             )
 
-binaryConnector: BinaryNodeConnector = BinaryNodeConnector(eval(input("Enter the data: ")))
-while True :
-    userInput = input(userChoice)
-    match userInput :
-        case "1" :
-            userData = eval(input("Enter the data: "))
-            binaryConnector.InsertData(userData)
-        case "2" :
-            binaryConnector.DisplayTreeValues()
-        case "3" :
-            break
+    binaryConnector: BinaryNodeConnector = BinaryNodeConnector(eval(input("Enter the data: ")))
+    while True :
+        userInput = input(userChoice)
+        match userInput :
+            case "insert" :
+                userData = eval(input("Enter the data: "))
+                binaryConnector.InsertData(userData)
+            case "inorder" :
+                print(binaryConnector.InOrderTraversal())
+            case "preorder" :
+                print(binaryConnector.PreOrderTraversal())
+            case "postorder" :
+                print(binaryConnector.PostOrderTraversal())
+            case "exit" :
+                break

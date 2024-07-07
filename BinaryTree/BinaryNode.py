@@ -7,7 +7,7 @@ class BinaryNode :
     # >>>>>>>>>>>>>>>>>>>> CRUD operations starts<<<<<<<<<<<<<<<<<<<<
     # CREATE operation.......
     def InsertData(self, NewData: int) -> None :
-        if self.Data > NewData :  # store to left if given data is smaller the present data
+        if self.Data >= NewData :  # store to left if given data is smaller the present data
             if self.Left is None :
                 self.Left = BinaryNode(NewData)
             else :
