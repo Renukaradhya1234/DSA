@@ -17,6 +17,28 @@ class SingleLinkedListConnector :
         NewNode.UpdateNextNode(self.RootNode)
 
         self.RootNode = NewNode
+    
+    # Create Operation......
+    def InsertDataToPrevNode(self, OldData: int, NewData: int, Node: SingleLinkedNode, PrevNode: SingleLinkedNode | None = None) :
+        # first call will be newdata, rootnode, prevnode = none
+        if Node is None :
+            return 
+        if Node.GetData() == OldData :
+            NewNode: SingleLinkedNode = SingleLinkedNode(NewData)
+            if  PrevNode is None:
+                # prevnode is none means, current node must be root node.....
+                NewNode.UpdateNextNode(Node)
+                self.RootNode = NewNode
+            else :
+                # prevnode -> nextnode
+                # prevnode -> newnode -> nextnode
+                NewNode.UpdateNextNode(PrevNode.GetNextNode())
+                PrevNode.UpdateNextNode(NewNode)
+        self.InsertDataToPrevNode(OldData, NewData, Node.GetNextNode(), Node)
+
+    # Create Operation....
+    def InsertDataToNextNode(self, OldData: int, NewData: int) :
+        self.RootNode.InsertDataToAfterNode(OldData, NewData)
 
     # Read Operation.......
     def DisplayAllData(self) -> None:

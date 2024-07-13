@@ -11,6 +11,18 @@ class SingleLinkedNode :
             self.NextNode = SingleLinkedNode(NewData)
         else :
             self.NextNode.InsertDataToEnd(NewData)
+        
+    # Create Operation.....
+    def InsertDataToAfterNode(self, OldData, NewData) :
+        NextNode: SingleLinkedNode | None = self.GetNextNode()
+        
+        if self.Data == OldData :
+            NewNode: SingleLinkedNode = SingleLinkedNode(NewData)
+            NewNode.UpdateNextNode(self.GetNextNode())
+            self.UpdateNextNode(NewNode)
+        
+        if not (NextNode is None) :
+            NextNode.InsertDataToAfterNode(OldData, NewData)
 
     # Read Operation....
     def DisplayData(self) -> None :
