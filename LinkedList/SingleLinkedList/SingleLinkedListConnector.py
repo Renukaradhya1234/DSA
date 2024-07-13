@@ -68,40 +68,27 @@ class SingleLinkedListConnector :
     def UpdateDataByIndex(self, NewData, Index) -> None:
         self.RootNode.UpdateDataByIndex(NewData, Index)
     
-    # delete Operation....
-    def DeleteNode(self, Value) -> None :
-        if self.RootNode.GetData() == Value :
-            self.RootNode = self.RootNode.GetNextNode()
-        else :
-            Node: SingleLinkedNode | None = self.GetNodeByValue(self.RootNode, Value, "before")
-
-            if Node is not None :
-                Node.UpdateNextNode(Node.GetNextNode().GetNextNode())
-
-    # Node Helper......
-    @staticmethod
-    def NodeTraversal(Node: SingleLinkedNode, Operation: str, OldData = None, NewData = None) -> None :
+    # Delete Operation....
+    def DeleteNode(self, Value, Node: SingleLinkedNode, PrevNode: SingleLinkedNode | None = None) -> None :
         if Node is None :
-            return 
-        if Operation == "display" :
-            print(Node.GetData())
-        elif Operation == "update" :
-            if OldData == Node.GetData() :
-                Node.UpdateData(NewData)
-        SingleLinkedListConnector.NodeTraversal(Node.GetNextNode(), Operation, OldData, NewData)
+            return
+        if Node.Data == Value :
+            if PrevNode is None :
+                # if prev node is none it must be root node, or starter....
+                self.RootNode = self.RootNode.GetNextNode()
+                return
+            PrevNode.UpdateNextNode(Node.GetNextNode())
+        self.DeleteNode(Value, Node.GetNextNode(), Node)
 
-    # Node Helper....
-    @staticmethod
-    def GetNodeByValue(Node: SingleLinkedNode, Value: int, Type = "current") :
+    # Delete Operation.....
+    def DeleteNodeByIndex(self, Index, Node: SingleLinkedNode, PrevNode: SingleLinkedNode | None = None, CurrentIndex: int = 0) :
         if Node is None :
-            return None
-        if Node.GetData() == Value :
-            if Type == "current" :
-                return Node
-            elif Type == "after" :
-                return Node.GetNextNode()
-        else :
-            NextNode: SingleLinkedNode | None = Node.GetNextNode()
-            if Type == "before" and NextNode and NextNode.GetData() == Value :
-                return Node
-        return SingleLinkedListConnector.GetNodeByValue(Node.GetNextNode(), Value, Type)
+            return
+        if Index == CurrentIndex :
+            if PrevNode is None :
+                # if prev node is none it must be root node, or starter....
+                self.RootNode = self.RootNode.GetNextNode()
+                return
+            PrevNode.UpdateNextNode(Node.GetNextNode())
+            return
+        self.DeleteNodeByIndex(Index, Node.GetNextNode(), Node, CurrentIndex + 1)
