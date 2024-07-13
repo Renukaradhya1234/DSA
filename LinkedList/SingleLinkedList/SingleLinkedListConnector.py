@@ -42,11 +42,27 @@ class SingleLinkedListConnector :
 
     # Read Operation.......
     def DisplayAllData(self) -> None:
-        self.NodeTraversal(self.RootNode, "display")
+        self.RootNode.DisplayAllData()
 
+    # Read Operation....
+    def GetAllData(self) :
+        return self.RootNode.GetAllData()
+    
+    # Read Operation....
+    def GetLength(self) -> int:
+        return self.RootNode.GetLength()
+    
+    # Read Operation....
+    def GetDataByIndex(self, Index: int) :
+        return self.RootNode.GetDataByIndex(Index)
+    
+    # Read Operation....
+    def GetIndexByData(self, Data: int) :
+        return self.RootNode.GetIndexByData(Data) 
+    
     # Update Operation.....
     def UpdateAllData(self, OldData: int, NewData: int) -> None :
-        self.NodeTraversal(self.RootNode, "update", OldData, NewData)
+        self.RootNode.UpdateAllData(OldData, NewData)
 
     # delete Operation....
     def DeleteNode(self, Value) -> None :

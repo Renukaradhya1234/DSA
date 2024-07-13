@@ -27,19 +27,61 @@ class SingleLinkedNode :
     # Read Operation....
     def DisplayData(self) -> None :
         print(self.Data)
+
+    # Read Operation....
+    def DisplayAllData(self) -> None :
+        self.DisplayData()
+        if self.NextNode is not None :
+            self.NextNode.DisplayAllData()
     
     # Read Operation....
     def GetData(self) -> int:
         return self.Data
     
+    # Read Operation...
+    def GetAllData(self) -> list :
+        result = [self.GetData()]
+        if self.NextNode is None :
+            return result
+        result.extend(self.NextNode.GetAllData())
+        return result
+    
     # Read Operation....
     def GetNextNode(self):
         return self.NextNode
     
+    # Read Operation....
+    def GetLength(self) :
+        if self.NextNode is None :
+            return 1
+        return 1 + self.NextNode.GetLength()
+    
+    # Read Operation.....
+    def GetDataByIndex(self, Index: int, CurrentIndex: int = 0) :
+        if Index == CurrentIndex :
+            return self.GetData()
+        if self.NextNode is not None :
+            return self.NextNode.GetDataByIndex(Index, CurrentIndex + 1)
+
+    # Read Operation....  
+    def GetIndexByData(self, Data: int, CurrentIndex: int = 0) :
+        if self.Data == Data :
+            return CurrentIndex
+        if self.NextNode is not None :
+            return self.NextNode.GetIndexByData(Data, CurrentIndex + 1)
+ 
     # Update Operation.....
     def UpdateData(self, NewData: int) -> None:
-        self.Data = NewData
+        self.Data = NewData        
+
 
     # Update Operation......
     def UpdateNextNode(self, NewNextNode) -> None :
         self.NextNode = NewNextNode
+
+    # Update Operation....
+    def UpdateAllData(self, OldData: int, NewData: int) -> None :
+        if self.Data == OldData :
+            self.UpdateData(NewData)
+        if self.NextNode is not None :
+            self.NextNode.UpdateAllData(OldData, NewData)
