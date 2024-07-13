@@ -85,3 +85,11 @@ class SingleLinkedNode :
             self.UpdateData(NewData)
         if self.NextNode is not None :
             self.NextNode.UpdateAllData(OldData, NewData)
+
+    # Update Operation....
+    def UpdateDataByIndex(self, NewData: int, Index: int, CurrentIndex: int = 0) -> None :
+        if Index == CurrentIndex :
+            self.UpdateData(NewData)
+            return
+        if self.NextNode is not None :
+            self.NextNode.UpdateDataByIndex(NewData, Index, CurrentIndex + 1)

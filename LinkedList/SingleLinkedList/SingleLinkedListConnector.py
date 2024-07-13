@@ -64,6 +64,10 @@ class SingleLinkedListConnector :
     def UpdateAllData(self, OldData: int, NewData: int) -> None :
         self.RootNode.UpdateAllData(OldData, NewData)
 
+    # Update Operation....
+    def UpdateDataByIndex(self, NewData, Index) -> None:
+        self.RootNode.UpdateDataByIndex(NewData, Index)
+    
     # delete Operation....
     def DeleteNode(self, Value) -> None :
         if self.RootNode.GetData() == Value :
