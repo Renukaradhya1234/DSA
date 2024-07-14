@@ -74,14 +74,14 @@ class DoubleLinkedNode :
     # Update Operation.... 
     def UpdateAllData(self, OldData: int, NewData: int) -> None :
         if self.Data == OldData :
-            self.UpdateData(NewData)
+            self.Data = NewData
         if self.NextNode is not None :
             self.NextNode.UpdateAllData(OldData, NewData)
 
     # Update Operation....
     def UpdateDataByIndex(self, NewData: int, Index: int, CurrentIndex: int = 0) -> None :
         if Index == CurrentIndex :
-            self.UpdateData(NewData)
+            self.Data = NewData
             return
         if self.NextNode is not None :
             self.NextNode.UpdateDataByIndex(NewData, Index, CurrentIndex + 1)

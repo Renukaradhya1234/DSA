@@ -66,3 +66,39 @@ class DoubleLinkedNodeConnector :
     # Update Operation....
     def UpdateDataByIndex(self, NewData, Index) -> None:
         self.RootNode.UpdateDataByIndex(NewData, Index)
+
+    # Delete Operation.....
+    def DeleteNode(self, Data: int  , Node: DoubleLinkedNode | None) :
+        if Node is None :
+            return
+        
+        if Node.Data == Data :
+            if Node.PrevNode is None :
+                # Node must be starter....
+                self.RootNode = self.RootNode.NextNode
+                if self.RootNode is not None :
+                    self.RootNode.PrevNode = None
+            else :
+                Node.PrevNode.NextNode = Node.NextNode
+                if Node.NextNode is not None :
+                    Node.NextNode.PrevNode = Node.PrevNode
+        self.DeleteNode(Data, Node.NextNode)
+
+    # Delete Operation...
+    def DeleteNodeByIndex(self, Index, Node: DoubleLinkedNode | None, CurrentIndex: int = 0) :
+        if Node is None :
+            return
+        
+        if Index == CurrentIndex :
+            if Node.PrevNode is None :
+                # Node must be starter....
+                self.RootNode = self.RootNode.NextNode
+                if self.RootNode is not None :
+                    self.RootNode.PrevNode = None
+                return
+            Node.PrevNode.NextNode = Node.NextNode
+            if Node.NextNode is not None :
+                Node.NextNode.PrevNode = Node.PrevNode
+            return
+        
+        self.DeleteNodeByIndex(Index, Node.NextNode, CurrentIndex + 1)
