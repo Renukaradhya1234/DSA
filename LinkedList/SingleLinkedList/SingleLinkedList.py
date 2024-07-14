@@ -93,3 +93,10 @@ class SingleLinkedNode :
             return
         if self.NextNode is not None :
             self.NextNode.UpdateDataByIndex(NewData, Index, CurrentIndex + 1)
+
+    # Delete Operation....
+    def DeleteLastNode(self, PrevNode = None) :
+        if self.NextNode is None :
+            PrevNode.NextNode = None
+            return
+        self.NextNode.DeleteLastNode(self)

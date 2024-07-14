@@ -9,7 +9,8 @@ class SingleLinkedListConnector :
     
     # Create Operation.........
     def InsertDataToEnd(self, NewData: int) -> None :
-        self.RootNode.InsertDataToEnd(NewData)
+        if self.RootNode is not None :
+            self.RootNode.InsertDataToEnd(NewData)
 
     # Create Operation.........
     def InsertDataToBegin(self, NewData: int) -> None :
@@ -19,7 +20,7 @@ class SingleLinkedListConnector :
         self.RootNode = NewNode
     
     # Create Operation......
-    def InsertDataToPrevNode(self, OldData: int, NewData: int, Node: SingleLinkedNode, PrevNode: SingleLinkedNode | None = None) :
+    def InsertDataToPrevNode(self, OldData: int, NewData: int, Node: SingleLinkedNode | None, PrevNode: SingleLinkedNode | None = None) :
         # first call will be newdata, rootnode, prevnode = none
         if Node is None :
             return 
@@ -38,38 +39,46 @@ class SingleLinkedListConnector :
 
     # Create Operation....
     def InsertDataToNextNode(self, OldData: int, NewData: int) :
-        self.RootNode.InsertDataToAfterNode(OldData, NewData)
+        if self.RootNode is not None :
+            self.RootNode.InsertDataToAfterNode(OldData, NewData)
 
     # Read Operation.......
     def DisplayAllData(self) -> None:
-        self.RootNode.DisplayAllData()
+        if self.RootNode is not None :
+            self.RootNode.DisplayAllData()
 
     # Read Operation....
     def GetAllData(self) :
-        return self.RootNode.GetAllData()
+        if self.RootNode is not None :
+            return self.RootNode.GetAllData()
     
     # Read Operation....
     def GetLength(self) -> int:
-        return self.RootNode.GetLength()
+        if self.RootNode is not None :
+            return self.RootNode.GetLength()
     
     # Read Operation....
     def GetDataByIndex(self, Index: int) :
-        return self.RootNode.GetDataByIndex(Index)
+        if self.RootNode is not None :
+            return self.RootNode.GetDataByIndex(Index)
     
     # Read Operation....
     def GetIndexByData(self, Data: int) :
-        return self.RootNode.GetIndexByData(Data) 
+        if self.RootNode is not None :
+            return self.RootNode.GetIndexByData(Data) 
     
     # Update Operation.....
     def UpdateAllData(self, OldData: int, NewData: int) -> None :
-        self.RootNode.UpdateAllData(OldData, NewData)
+        if self.RootNode is not None :
+            self.RootNode.UpdateAllData(OldData, NewData)
 
     # Update Operation....
     def UpdateDataByIndex(self, NewData, Index) -> None:
-        self.RootNode.UpdateDataByIndex(NewData, Index)
+        if self.RootNode is not None :
+            self.RootNode.UpdateDataByIndex(NewData, Index)
     
     # Delete Operation....
-    def DeleteNode(self, Value, Node: SingleLinkedNode, PrevNode: SingleLinkedNode | None = None) -> None :
+    def DeleteNode(self, Value, Node: SingleLinkedNode | None, PrevNode: SingleLinkedNode | None = None) -> None :
         if Node is None :
             return
         if Node.Data == Value :
@@ -81,7 +90,7 @@ class SingleLinkedListConnector :
         self.DeleteNode(Value, Node.GetNextNode(), Node)
 
     # Delete Operation.....
-    def DeleteNodeByIndex(self, Index, Node: SingleLinkedNode, PrevNode: SingleLinkedNode | None = None, CurrentIndex: int = 0) :
+    def DeleteNodeByIndex(self, Index, Node: SingleLinkedNode | None, PrevNode: SingleLinkedNode | None = None, CurrentIndex: int = 0) :
         if Node is None :
             return
         if Index == CurrentIndex :
@@ -92,3 +101,16 @@ class SingleLinkedListConnector :
             PrevNode.UpdateNextNode(Node.GetNextNode())
             return
         self.DeleteNodeByIndex(Index, Node.GetNextNode(), Node, CurrentIndex + 1)
+
+    # Delete Operation....
+    def DeleteFirstNode(self) :
+        if self.RootNode is not None :
+            self.RootNode = self.RootNode.NextNode
+
+    def DeleteLastNode(self) :
+        if self.RootNode is not None :
+            if self.RootNode.NextNode is None :
+                self.RootNode = None
+            else :
+                self.RootNode.DeleteLastNode()
+        

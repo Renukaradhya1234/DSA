@@ -116,6 +116,8 @@ class DoubleLinkedNodeConnector :
     def DeleteFirstNode(self) :
         if self.RootNode is not None :
             self.RootNode = self.RootNode.NextNode
+            if self.RootNode is not None :
+                self.RootNode.PrevNode = None
 
     def DeleteLastNode(self) :
         if self.RootNode is not None :
