@@ -85,3 +85,11 @@ class DoubleLinkedNode :
             return
         if self.NextNode is not None :
             self.NextNode.UpdateDataByIndex(NewData, Index, CurrentIndex + 1)
+
+    # Delete Operation...
+    def DeleteLastNode(self) :
+        if self.NextNode is None :
+            self.PrevNode.NextNode = None 
+            self.PrevNode = None
+            return
+        self.NextNode.DeleteLastNode()

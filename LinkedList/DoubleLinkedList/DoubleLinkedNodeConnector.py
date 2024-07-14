@@ -5,14 +5,16 @@ class DoubleLinkedNodeConnector :
         self.RootNode: DoubleLinkedNode = DoubleLinkedNode(Data)
 
     def InsertDataToEnd(self, Data: int )-> None:
-        self.RootNode.InsertNodeToEnd(Data)
+        if self.RootNode is not None :
+            self.RootNode.InsertNodeToEnd(Data)
 
     # Create Operation.........
     def InsertDataToBegin(self, NewData: int) -> None :
         NewNode: DoubleLinkedNode = DoubleLinkedNode(NewData)
         NewNode.NextNode = self.RootNode
 
-        self.RootNode.PrevNode = NewNode
+        if self.RootNode is not None :
+            self.RootNode.PrevNode = NewNode
         
         self.RootNode = NewNode
 
@@ -38,34 +40,42 @@ class DoubleLinkedNodeConnector :
         self.InsertDataToPrevNode(OldData, NewData, Node.NextNode)
 
     def InsertDataToNextNode(self, OldData: int , NewData: int) :
-        self.RootNode.InsertDataAfterNode(OldData, NewData)
+        if self.RootNode is not None :
+            self.RootNode.InsertDataAfterNode(OldData, NewData)
 
     def DisplayAllData(self) :
-        self.RootNode.DisplayAllData()
+        if self.RootNode is not None :
+            self.RootNode.DisplayAllData()
 
     # Read Operation....
     def GetAllData(self) :
-        return self.RootNode.GetAllData()
+        if self.RootNode is not None :
+            return self.RootNode.GetAllData()
     
     # Read Operation....
     def GetLength(self) -> int:
-        return self.RootNode.GetLength()
+        if self.RootNode is not None :
+            return self.RootNode.GetLength()
     
     # Read Operation....
     def GetDataByIndex(self, Index: int) :
-        return self.RootNode.GetDataByIndex(Index)
+        if self.RootNode is not None :
+            return self.RootNode.GetDataByIndex(Index)
 
     # Read Operation....
     def GetIndexByData(self, Data: int) :
-        return self.RootNode.GetIndexByData(Data)
+        if self.RootNode is not None :
+            return self.RootNode.GetIndexByData(Data)
 
     # Update Operation.....
     def UpdateAllData(self, OldData: int, NewData: int) -> None :
-        self.RootNode.UpdateAllData(OldData, NewData)
+        if self.RootNode is not None :
+            self.RootNode.UpdateAllData(OldData, NewData)
 
     # Update Operation....
     def UpdateDataByIndex(self, NewData, Index) -> None:
-        self.RootNode.UpdateDataByIndex(NewData, Index)
+        if self.RootNode is not None :
+            self.RootNode.UpdateDataByIndex(NewData, Index)
 
     # Delete Operation.....
     def DeleteNode(self, Data: int  , Node: DoubleLinkedNode | None) :
@@ -102,3 +112,11 @@ class DoubleLinkedNodeConnector :
             return
         
         self.DeleteNodeByIndex(Index, Node.NextNode, CurrentIndex + 1)
+
+    def DeleteFirstNode(self) :
+        if self.RootNode is not None :
+            self.RootNode = self.RootNode.NextNode
+
+    def DeleteLastNode(self) :
+        if self.RootNode is not None :
+            self.RootNode.DeleteLastNode()
