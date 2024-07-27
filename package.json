@@ -1,0 +1,15 @@
+{
+    "name" : "dsa",
+    "description" : "Learning DSA with visualization",
+    "author": {
+        "name": "Renukaradhya T B"
+    },
+    "homepage": ".",
+    "type": "module",
+    "dependencies": {
+
+    },
+    "devDependencies": {
+
+    }
+}
