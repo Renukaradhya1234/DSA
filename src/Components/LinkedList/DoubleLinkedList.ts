@@ -83,6 +83,41 @@ class DoubleLinkedListConnector {
             DoubleLinkedListConnector.DeleteDataHelper(Data, this.RootNode);
         }
     }
+
+    private static GetTheLengthHelper(Count: number, Node: DoubleLinkedNode | null): number {
+        if (Node) {
+            return DoubleLinkedListConnector.GetTheLengthHelper(Count + 1, Node.NextNode);
+        }
+        return Count;
+    }
+
+    GetTheLength(): number {
+        var Count: number = 0;
+        if (this.RootNode) {
+            Count = DoubleLinkedListConnector.GetTheLengthHelper(Count, this.RootNode);
+        }
+        return Count;
+    }
+
+
+    private static IsPresentHelper(Data: number, Node: DoubleLinkedNode | null): boolean {
+        if (Node) {
+            if (Node.Data === Data) {
+                return true;
+            }
+            return DoubleLinkedListConnector.IsPresentHelper(Data, Node.NextNode);
+        }
+        return false;
+    }
+
+    IsPresent(Data: number): boolean {
+        var Present: boolean = false;
+
+        if (this.RootNode){
+            Present = DoubleLinkedListConnector.IsPresentHelper(Data, this.RootNode);
+        }
+        return Present;
+    }
 }
 
 var double = new DoubleLinkedListConnector();
@@ -98,8 +133,11 @@ double.UpdateAllData(10, 100);
 double.UpdateAllData(40, 400);
 double.UpdateAllData(30, 300);
 double.UpdateAllData(20, 200);
-
+console.log("Length:- ", double.GetTheLength());
 console.log("Updated Data:- ", double.ReadAllData());
-
+console.log("Length:- ", double.GetTheLength());
 double.DeleteData(200);
 console.log("Nodes:- ", double.ReadAllData());
+console.log("Length:- ", double.GetTheLength());
+console.log("IsPresent:- ", double.IsPresent(40));
+console.log("IsPresent:- ", double.IsPresent(400));
