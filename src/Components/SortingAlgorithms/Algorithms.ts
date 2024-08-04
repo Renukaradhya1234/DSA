@@ -49,7 +49,11 @@ class SortingAlgorithms {
         }
     }
 
-    private MergeArray(LeftInputArray: Array<number>, RightInputArray: Array<number>): Array<number> {
+    MergeSort(InputArray: Array<number>): void {
+        console.log("After Sorting:- ", SortingAlgorithms.DivideTheArray(InputArray));
+    }
+
+    private static MergeArray(LeftInputArray: Array<number>, RightInputArray: Array<number>): Array<number> {
         let Result: Array<number> = [];
         let LeftIndex: number = 0;
         let RightIndex: number = 0;
@@ -87,7 +91,7 @@ class SortingAlgorithms {
         return Result;
     }
 
-    private DivideTheArray(InputArray: Array<number>): Array<number> {
+    private static DivideTheArray(InputArray: Array<number>): Array<number> {
         /*
             Divide the Array into two Parts then give to merge function to solve the sorting...
         */
@@ -100,11 +104,7 @@ class SortingAlgorithms {
         let LeftArray: Array<number> = InputArray.slice(0, MiddleIndex);
         let RightArray: Array<number> = InputArray.slice(MiddleIndex);
 
-        return this.MergeArray(this.DivideTheArray(LeftArray), this.DivideTheArray(RightArray))
-    }
-
-    MergeSort(InputArray: Array<number>): void {
-        console.log("After Sorting:- ", this.DivideTheArray(InputArray));
+        return SortingAlgorithms.MergeArray(SortingAlgorithms.DivideTheArray(LeftArray), SortingAlgorithms.DivideTheArray(RightArray))
     }
 }
 
