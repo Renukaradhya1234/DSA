@@ -48,10 +48,69 @@ class SortingAlgorithms {
             }
         }
     }
+
+    private MergeArray(LeftInputArray: Array<number>, RightInputArray: Array<number>): Array<number> {
+        let Result: Array<number> = [];
+        let LeftIndex: number = 0;
+        let RightIndex: number = 0;
+
+        /*
+            Merget by comparing the left and right array.
+            if left array value is lessthan right array value then add value of left then increment only left index
+            else add right value to array then increment only right index...
+        */
+        while (LeftIndex < LeftInputArray.length && RightIndex < RightInputArray.length) {
+            if (LeftInputArray[LeftIndex] < RightInputArray[RightIndex]) {
+                Result.push(LeftInputArray[LeftIndex]);
+                LeftIndex ++;
+            }
+            else {
+                Result.push(RightInputArray[RightIndex]);
+                RightIndex ++;
+            }
+        }
+
+        /*
+            if any value is present in left and right array add them 
+            first left array then right array....
+        */
+       while(LeftIndex < LeftInputArray.length) {
+            Result.push(LeftInputArray[LeftIndex]);
+            LeftIndex ++;
+       }
+
+       while (RightIndex < RightInputArray.length) {
+            Result.push(RightInputArray[RightIndex]);
+            RightIndex ++;
+       }
+
+        return Result;
+    }
+
+    private DivideTheArray(InputArray: Array<number>): Array<number> {
+        /*
+            Divide the Array into two Parts then give to merge function to solve the sorting...
+        */
+        
+        if (InputArray.length == 1) {
+            return InputArray
+        }
+
+        let MiddleIndex: number = Math.floor(InputArray.length / 2);
+        let LeftArray: Array<number> = InputArray.slice(0, MiddleIndex);
+        let RightArray: Array<number> = InputArray.slice(MiddleIndex);
+
+        return this.MergeArray(this.DivideTheArray(LeftArray), this.DivideTheArray(RightArray))
+    }
+
+    MergeSort(InputArray: Array<number>): void {
+        console.log("After Sorting:- ", this.DivideTheArray(InputArray));
+    }
 }
 
-var bubble = new SortingAlgorithms();
+var sorting = new SortingAlgorithms();
 var Input = [7, 12, 9, 11, 3]
 console.log("before Sorting:- ", Input);
-bubble.InserationSort(Input);
-console.log("After Sorting:- ", Input);
+// bubble.InserationSort(Input);
+sorting.MergeSort(Input);
+// console.log("After Sorting:- ", Input);
